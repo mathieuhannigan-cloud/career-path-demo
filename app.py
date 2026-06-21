@@ -39,37 +39,30 @@ scaler = pickle.load(open("scaler.pkl", "rb"))
 label_encoder = pickle.load(open("label_encoder.pkl", "rb"))
 
 # =====================================================
-# فیچرها - نام فارسی زیبا + ترتیب اصلی مدل
+# ۱۹ فیچر اصلی با ترجمه فارسی
 # =====================================================
 feature_mapping = [
-    ("قدرت تحلیل و درک محیط", "Reading Comprehension"),
-    ("گوش دادن فعال", "Active Listening"),
-    ("مهارت نوشتاری و مکاتبه", "Writing"),
-    ("هوش کلامی", "Speaking"),
-    ("هوش تحلیلی و محاسباتی", "Mathematics"),
-    ("دانش حرفه‌ای و شغلی", "Science"),
-    ("تفکر انتقادی", "Critical Thinking"),
-    ("یادگیری فعال", "Active Learning"),
-    ("راهبردهای یادگیری", "Learning Strategies"),
-    ("قدرت نظارت و کنترل", "Monitoring"),
-    ("آگاهی اجتماعی", "Social Perceptiveness"),
-    ("هماهنگی بین بخشی", "Coordination"),
-    ("رهبری تحول‌گرا", "Persuasion"),
-    ("مهارت مذاکره و فن بیان", "Negotiation"),
-    ("مهارت حل مسائل پیچیده", "Complex Problem Solving"),
-    ("تحلیل عملیات", "Operations Analysis"),
-    ("مهارت‌های رایانه‌ای و برنامه‌نویسی", "Programming"),
-    ("پایش فرایندهای اجرایی", "Operations Monitoring"),
-    ("مهارت مسئله‌یابی", "Troubleshooting"),
-    ("مهارت تصمیم‌گیری و قضاوت", "Judgment and Decision Making"),
-    ("تفکر و تحلیل سیستمی", "Systems Analysis"),
-    ("مدیریت زمان", "Time Management"),
-    ("مدیریت منابع مالی", "Management of Financial Resources"),
-    ("مدیریت تجهیزات و منابع مادی", "Management of Material Resources"),
-    ("مدیریت منابع انسانی", "Management of Personnel Resources")
+    ("قدرت تحلیل و درک محیط (Reading Comprehension)", "Reading Comprehension"),
+    ("هوش تحلیلی و محاسباتی (Mathematics)", "Mathematics"),
+    ("دانش حرفه‌ای و شغلی (Science)", "Science"),
+    ("تفکر انتقادی (Critical Thinking)", "Critical Thinking"),
+    ("یادگیری فعال (Active Learning)", "Active Learning"),
+    ("قدرت نظارت و کنترل (Monitoring)", "Monitoring"),
+    ("هماهنگی بین بخشی (Coordination)", "Coordination"),
+    ("رهبری تحول‌گرا (Persuasion)", "Persuasion"),
+    ("مهارت مذاکره و فن بیان (Negotiation)", "Negotiation"),
+    ("مهارت حل مسائل پیچیده (Complex Problem Solving)", "Complex Problem Solving"),
+    ("تحلیل عملیات (Operations Analysis)", "Operations Analysis"),
+    ("پایش فرایندهای اجرایی (Operations Monitoring)", "Operations Monitoring"),
+    ("مهارت مسئله‌یابی (Troubleshooting)", "Troubleshooting"),
+    ("مهارت تصمیم‌گیری و قضاوت (Judgment and Decision Making)", "Judgment and Decision Making"),
+    ("تفکر و تحلیل سیستمی (Systems Analysis)", "Systems Analysis"),
+    ("مدیریت زمان (Time Management)", "Time Management"),
+    ("مدیریت منابع مالی (Management of Financial Resources)", "Management of Financial Resources"),
+    ("مدیریت تجهیزات و منابع مادی (Management of Material Resources)", "Management of Material Resources"),
+    ("مدیریت منابع انسانی (Management of Personnel Resources)", "Management of Personnel Resources")
 ]
 
-# فقط نام‌های فارسی برای نمایش
 features_persian = [name for name, _ in feature_mapping]
 
 # =====================================================
@@ -86,10 +79,10 @@ values = []
 col1, col2 = st.columns(2)
 
 for i, feature in enumerate(features_persian):
-    if i < 13:   # تنظیم ستون‌ها
-        value = col1.slider(feature, min_value=1, max_value=5, value=3, step=1)
+    if i < 10:
+        value = col1.slider(feature, 1, 5, 3)
     else:
-        value = col2.slider(feature, min_value=1, max_value=5, value=3, step=1)
+        value = col2.slider(feature, 1, 5, 3)
     values.append(value)
 
 # =====================================================
