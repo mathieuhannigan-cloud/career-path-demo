@@ -71,7 +71,7 @@ features_persian = [name for name, _ in feature_mapping]
 st.set_page_config(page_title="توصیه مسیر شغلی", layout="wide", page_icon="🎯")
 
 st.title("🎯 سیستم هوشمند توصیه مسیر شغلی")
-st.markdown("### مبتنی بر مدل Neuro-Fuzzy")
+st.markdown("###  Neuro-Fuzzy MODEL ")
 
 st.write("**مهارت‌های خود را از ۱ تا ۵ امتیازدهی کنید:**")
 
