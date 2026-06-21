@@ -137,30 +137,31 @@ for i, feature in enumerate(features):
 # =====================================================
 
 if st.button("Predict Career Path"):
+    X_raw = np.array(values).reshape(1, -1)
+    
+    st.write("**ورودی خام (اسلایدرها):**", X_raw[0])
+    
+    X_scaled = scaler.transform(X_raw)
+    st.write("**ورودی بعد از Scale:**", np.round(X_scaled[0], 4))
+    
+    # Forward pass
+    logits, firing_norm, _, _ = model.forward(X_scaled)
+    
+    st.write("**Logits (قبل از softmax):**", np.round(logits[0], 4))
+    st.write("**Firing strengths (قوت قوانین):**", np.round(firing_norm[0], 4))
+    
+    probs = model.predict_proba(X_scaled)
+    
+    pred_idx = np.argmax(probs)
+    career = label_encoder.inverse_transform([pred_idx])[0]
 
-    X = np.array(values).reshape(1, -1)
-
-    X = scaler.transform(X)
-
-    probs = model.predict_proba(X)
-
-    pred = np.argmax(probs)
-
-    career = label_encoder.inverse_transform([pred])[0]
-
-    st.success(
-        f"Recommended Career Path: {career}"
-    )
-
+    st.success(f"**مسیر شغلی پیشنهادی:** {career}")
+    
     df = pd.DataFrame({
         "Career Path": label_encoder.classes_,
-        "Probability": probs[0] * 100
+        "Probability (%)": np.round(probs[0] * 100, 2)
     })
-
-    st.subheader("Prediction Confidence (%)")
-
-    st.bar_chart(
-        df.set_index("Career Path")
-    )
-
+    
+    st.subheader("احتمال هر مسیر")
+    st.bar_chart(df.set_index("Career Path"))
     st.dataframe(df)
