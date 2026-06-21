@@ -75,7 +75,7 @@ if st.button("🔮 Predict Career Path"):
     
     st.write("**ورودی خام (۱-۵):**", X_raw[0])
     
-    # === فیکس Scaling ===
+    # Scaling
     X_scaled = scaler.transform(X_raw)
     st.write("**بعد از Scale:**", np.round(X_scaled[0], 4))
     
@@ -83,14 +83,15 @@ if st.button("🔮 Predict Career Path"):
     st.write("**Min scaler:**", scaler.data_min_.round(2))
     st.write("**Max scaler:**", scaler.data_max_.round(2))
     
-    # اگر scaler درست کار نکرده، دستی به ۰-۱ ببریم (موقتی)
-    X_fixed = np.clip(X_scaled / 5.0, 0, 1)   # <--- این خط مهمه
-    st.write("**بعد از فیکس دستی:**", np.round(X_fixed[0], 4))
+    # فیکس Scaling (مهم)
+    X_fixed = np.clip(X_scaled / 5.0, 0, 1)
+    st.write("**بعد از فیکس دستی (۰-۱):**", np.round(X_fixed[0], 4))
     
-    logits, firing_norm, _, _ = model.forward(X_fixed)   # اینجا X_fixed رو بده
+    # Forward
+    logits, firing_norm, _, _ = model.forward(X_fixed)
     
     st.write("**Firing Strengths:**", np.round(firing_norm[0], 6))
-    st.write("**Max Firing:**", firing_norm[0].max().round(6))
+    st.write("**Max Firing:**", round(firing_norm[0].max(), 6))
     st.write("**Logits:**", np.round(logits[0], 4))
     
     probs = model.predict_proba(X_fixed)
@@ -104,11 +105,7 @@ if st.button("🔮 Predict Career Path"):
         "Career Path": label_encoder.classes_,
         "Probability (%)": np.round(probs[0] * 100, 2)
     })
-    st.subheader("احتمال هر مسیر")
-    st.bar_chart(df.set_index("Career Path"))
-    st.dataframe(df)
-        "Career Path": label_encoder.classes_,
-        "Probability (%)": np.round(probs[0] * 100, 2)
-    })
+    
+    st.subheader("احتمال هر مسیر شغلی")
     st.bar_chart(df.set_index("Career Path"))
     st.dataframe(df)
